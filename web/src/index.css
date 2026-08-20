@@ -1,0 +1,260 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Zarya — tema institucional claro com rail navy.
+  Cartões brancos, hairlines, sombras sutis, um azul corporativo de acento.
+  Uma fonte (Plus Jakarta Sans). Sem libs de gráfico/animação.
+*/
+
+@layer base {
+  :root {
+    --bg: 228 44% 97%;
+    --panel: 0 0% 100%;
+    --ink: 224 39% 13%;
+    --muted-foreground: 222 12% 46%;
+    --border: 220 16% 90%;
+    --border-strong: 220 14% 84%;
+
+    /* Acento corporativo */
+    --primary: 218 100% 58%; /* #2979FF (azul da marca) */
+    --primary-foreground: 0 0% 100%;
+    --ring: 218 100% 58%;
+
+    /* Semânticos */
+    --gain: 154 64% 35%;
+    --loss: 354 70% 50%;
+    --gold: 38 82% 42%;
+
+    /* Sidebar (navy) */
+    --sidebar: 224 42% 12%;
+    --sidebar-elev: 224 36% 16%;
+    --sidebar-foreground: 220 22% 90%;
+    --sidebar-muted: 220 14% 58%;
+    --sidebar-border: 222 30% 22%;
+
+    --radius: 0.85rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-[hsl(var(--ink))] font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    /* fundo claro e suave, harmonizando com o header azul */
+    background: linear-gradient(180deg, hsl(226 52% 96.5%), hsl(228 40% 98%));
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.18);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(220 14% 80%);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(220 14% 70%);
+    background-clip: padding-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  .card {
+    background: hsl(var(--panel));
+    border: 1px solid hsl(var(--border));
+    box-shadow:
+      0 1px 1px hsl(224 39% 13% / 0.04),
+      0 6px 24px -14px hsl(224 39% 13% / 0.16);
+  }
+  .card-hover {
+    transition:
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .card-hover:hover {
+    box-shadow: 0 10px 30px -12px hsl(224 39% 13% / 0.18);
+    border-color: hsl(var(--border-strong));
+  }
+  /* gradiente sutil para o cabeçalho de resumo */
+  .hero-grad {
+    background: linear-gradient(135deg, hsl(0 0% 100%), hsl(230 60% 99%));
+  }
+  .divider {
+    background: hsl(var(--border));
+  }
+
+  .eyebrow {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .chip-gain {
+    background: hsl(var(--gain) / 0.1);
+    color: hsl(var(--gain));
+  }
+  .chip-loss {
+    background: hsl(var(--loss) / 0.1);
+    color: hsl(var(--loss));
+  }
+}
+
+@layer components {
+  .fade-up {
+    animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .fade-in {
+    animation: fadeIn 0.35s ease both;
+  }
+  .pop-in {
+    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes popIn {
+    from {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes growBar {
+    from {
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+    to {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+  @keyframes growBarV {
+    from {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+    to {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      hsl(224 39% 13% / 0.05),
+      transparent
+    );
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer {
+    to {
+      transform: translateX(100%);
+    }
+  }
+}
+
+/* Markdown nas bolhas do chat */
+.prose-chat {
+  line-height: 1.6;
+  font-size: 0.875rem;
+}
+.prose-chat p {
+  margin: 0;
+}
+.prose-chat p + p {
+  margin-top: 0.55rem;
+}
+.prose-chat strong {
+  font-weight: 700;
+}
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.4rem 0;
+  padding-left: 1.1rem;
+}
+.prose-chat li {
+  margin: 0.15rem 0;
+}
+.prose-chat li::marker {
+  color: hsl(var(--primary));
+}
+.prose-chat code {
+  font-family: ui-monospace, Menlo, monospace;
+  border-radius: 0.3rem;
+  background: hsl(220 16% 92%);
+  padding: 0.05rem 0.3rem;
+  font-size: 0.84em;
+}
