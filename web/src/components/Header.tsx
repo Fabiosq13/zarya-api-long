@@ -14,7 +14,7 @@ export function Header({ children, onLogout }: Props) {
     >
       <div className="mx-auto flex max-w-[1680px] flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between lg:px-8">
         <img src="/zarya-logo.png" alt="Zarya" className="h-9 w-auto" />
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end">
           {children}
           {onLogout && (
             <button

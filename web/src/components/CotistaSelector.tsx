@@ -93,7 +93,7 @@ export function CotistaSelector({ cotistas, value, onChange, disabled }: Props) 
         <button
           type="button"
           className={cn(
-            "group flex h-10 w-full items-center justify-between gap-2 rounded-lg border border-border-strong bg-panel px-3 text-sm font-medium text-ink shadow-sm transition-colors hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-primary data-[state=open]:border-primary sm:w-[12.5rem]",
+            "group flex h-10 w-full items-center justify-between gap-2 rounded-lg border border-border-strong bg-panel px-3 text-sm font-medium text-ink shadow-sm transition-colors hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring/40 focus:border-primary data-[state=open]:border-primary sm:w-[18rem] sm:shrink-0",
             disabled && "cursor-not-allowed opacity-50",
           )}
         >
@@ -103,8 +103,8 @@ export function CotistaSelector({ cotistas, value, onChange, disabled }: Props) 
       </PopoverTrigger>
 
       <PopoverContent
-        align="start"
-        className="w-[var(--radix-popover-trigger-width)] min-w-[13rem] p-0"
+        align="end"
+        className="w-[24rem] max-w-[calc(100vw-2rem)] p-0"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <div className="flex items-center gap-2 border-b border-border px-3">
@@ -144,9 +144,9 @@ export function CotistaSelector({ cotistas, value, onChange, disabled }: Props) 
                     isSelected && "bg-primary/8",
                   )}
                 >
-                  <span className="line-clamp-1">{c.nome}</span>
+                  <span className="line-clamp-2 break-words">{c.nome}</span>
                   {isSelected && (
-                    <span className="absolute right-3 flex h-4 w-4 items-center justify-center text-primary">
+                    <span className="absolute right-3 top-1/2 flex h-4 w-4 -translate-y-1/2 items-center justify-center text-primary">
                       <Check className="h-4 w-4" />
                     </span>
                   )}
